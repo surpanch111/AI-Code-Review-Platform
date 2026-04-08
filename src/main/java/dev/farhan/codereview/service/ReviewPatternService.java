@@ -33,15 +33,15 @@ public class ReviewPatternService {
                 request.explanation()
         );
 
-        String textForEmbedding = pattern.getDescription() + " "
-                + pattern.getExampleBadCode() + " "
-                + pattern.getExplanation();
-        pattern.setEmbedding(embeddingModel.embed(textForEmbedding));
+        pattern.setEmbedding(embeddingModel.embed(pattern.buildEmbeddingText()));
 
         return patternRepository.save(pattern);
     }
 
     public List<ReviewPattern> listPatterns(String language, String category) {
+        if (language != null && category != null) {
+            return patternRepository.findByLanguageAndCategory(language, category);
+        }
         if (language != null) {
             return patternRepository.findByLanguage(language);
         }

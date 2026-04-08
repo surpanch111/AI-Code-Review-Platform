@@ -1,6 +1,7 @@
 package dev.farhan.codereview.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "review_findings")
@@ -8,6 +9,7 @@ public class ReviewFinding {
 
     @Id
     private String id;
+    @Indexed
     private String submissionId;
     private String matchedPatternId;
     private int startLine;

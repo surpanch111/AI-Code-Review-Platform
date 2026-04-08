@@ -12,5 +12,7 @@ public interface ReviewPatternRepository extends MongoRepository<ReviewPattern, 
 
     List<ReviewPattern> findByCategory(String category);
 
+    List<ReviewPattern> findByLanguageAndCategory(String language, String category);
+
     List<ReviewPattern> findBySeverity(Severity severity);
 }

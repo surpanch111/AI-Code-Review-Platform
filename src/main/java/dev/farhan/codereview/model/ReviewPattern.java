@@ -1,6 +1,8 @@
 package dev.farhan.codereview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "review_patterns")
@@ -16,7 +18,9 @@ public class ReviewPattern {
     private String exampleBadCode;
     private String exampleGoodCode;
     private String explanation;
+    @JsonIgnore
     private float[] embedding;
+    @Transient
     private double searchScore;
 
     public ReviewPattern() {
@@ -67,4 +71,8 @@ public class ReviewPattern {
 
     public double getSearchScore() { return searchScore; }
     public void setSearchScore(double searchScore) { this.searchScore = searchScore; }
+
+    public String buildEmbeddingText() {
+        return description + " " + exampleBadCode + " " + explanation;
+    }
 }

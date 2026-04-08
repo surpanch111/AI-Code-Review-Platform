@@ -15,7 +15,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -43,6 +45,10 @@ public class ReviewService {
     }
 
     public ReviewResponse reviewCode(ReviewRequest request) {
+        if (request.code() == null || request.code().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Code must not be empty");
+        }
+
         // Step 1: Save the submission
         CodeSubmission submission = new CodeSubmission();
         submission.setCode(request.code());
@@ -67,22 +73,24 @@ public class ReviewService {
         // Step 4: Save findings and update the submission
         submission = submissionRepository.save(submission);
 
-        List<String> findingIds = new ArrayList<>();
         for (ReviewFinding finding : findings) {
             finding.setSubmissionId(submission.getId());
-            ReviewFinding saved = findingRepository.save(finding);
-            findingIds.add(saved.getId());
         }
+        List<ReviewFinding> savedFindings = findingRepository.saveAll(findings);
+        List<String> findingIds = savedFindings.stream()
+                .map(ReviewFinding::getId)
+                .toList();
 
         submission.setFindingIds(findingIds);
         submissionRepository.save(submission);
 
-        return new ReviewResponse(submission, findings);
+        return new ReviewResponse(submission, savedFindings);
     }
 
     public ReviewResponse getReview(String submissionId) {
         CodeSubmission submission = submissionRepository.findById(submissionId)
-                .orElseThrow(() -> new RuntimeException("Submission not found: " + submissionId));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Submission not found: " + submissionId));
         List<ReviewFinding> findings = findingRepository.findBySubmissionId(submissionId);
         return new ReviewResponse(submission, findings);
     }
@@ -111,7 +119,11 @@ public class ReviewService {
                         new Document("searchScore",
                                 new Document("$meta", "vectorSearchScore")));
 
-        Aggregation aggregation = Aggregation.newAggregation(vectorSearch, addScore);
+        AggregationOperation excludeEmbedding = context ->
+                new Document("$project",
+                        new Document("embedding", 0));
+
+        Aggregation aggregation = Aggregation.newAggregation(vectorSearch, addScore, excludeEmbedding);
 
         AggregationResults<ReviewPattern> results =
                 mongoTemplate.aggregate(aggregation, "review_patterns", ReviewPattern.class);

@@ -28,17 +28,12 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         List<ReviewPattern> patterns = createPatterns();
-        patternRepository.saveAll(patterns);
 
-        for (ReviewPattern pattern : patternRepository.findAll()) {
-            if (pattern.getEmbedding() == null) {
-                String text = pattern.getDescription() + " "
-                        + pattern.getExampleBadCode() + " "
-                        + pattern.getExplanation();
-                pattern.setEmbedding(embeddingModel.embed(text));
-                patternRepository.save(pattern);
-            }
+        for (ReviewPattern pattern : patterns) {
+            pattern.setEmbedding(embeddingModel.embed(pattern.buildEmbeddingText()));
         }
+
+        patternRepository.saveAll(patterns);
     }
 
     private List<ReviewPattern> createPatterns() {
