@@ -3,6 +3,7 @@ package dev.farhan.codereview.dto;
 import dev.farhan.codereview.model.Severity;
 
 public record CreatePatternRequest(
+        String id,
         String name,
         String description,
         String language,

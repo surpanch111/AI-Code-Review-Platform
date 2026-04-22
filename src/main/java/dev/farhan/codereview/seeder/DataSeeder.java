@@ -42,6 +42,7 @@ public class DataSeeder implements CommandLineRunner {
         // --- Error handling patterns ---
 
         patterns.add(new ReviewPattern(
+                "catching-generic-exception",
                 "Catching generic Exception",
                 "Catching java.lang.Exception instead of specific exception types",
                 "java",
@@ -71,6 +72,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "empty-catch-block",
                 "Empty catch block",
                 "Catching an exception and doing nothing with it, silently swallowing errors",
                 "java",
@@ -94,6 +96,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "rethrow-without-context",
                 "Catching and rethrowing without context",
                 "Catching an exception and rethrowing it without adding context or wrapping it",
                 "java",
@@ -117,6 +120,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "print-stack-trace-instead-of-logger",
                 "Using printStackTrace instead of a logger",
                 "Calling e.printStackTrace() instead of using a proper logging framework",
                 "java",
@@ -140,6 +144,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "swallowing-interrupted-exception",
                 "Swallowing InterruptedException",
                 "Catching InterruptedException without restoring the interrupt flag on the thread",
                 "java",
@@ -167,6 +172,7 @@ public class DataSeeder implements CommandLineRunner {
         // --- Security patterns ---
 
         patterns.add(new ReviewPattern(
+                "hardcoded-credentials",
                 "Hardcoded credentials",
                 "Storing passwords, API keys, or secrets as string literals in source code",
                 "java",
@@ -191,6 +197,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "sql-injection-via-string-concatenation",
                 "SQL injection via string concatenation",
                 "Building SQL or database queries by concatenating user input directly into the query string",
                 "java",
@@ -211,6 +218,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "math-random-for-security-tokens",
                 "Using Math.random for security tokens",
                 "Using java.lang.Math.random() to generate tokens, session IDs, or other security-sensitive values",
                 "java",
@@ -232,6 +240,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "logging-sensitive-data",
                 "Logging sensitive data",
                 "Writing passwords, tokens, credit card numbers, or other sensitive data to log output",
                 "java",
@@ -251,6 +260,7 @@ public class DataSeeder implements CommandLineRunner {
         // --- Performance patterns ---
 
         patterns.add(new ReviewPattern(
+                "string-concatenation-in-loops",
                 "String concatenation in loops",
                 "Using the + operator or += to build strings inside a loop instead of StringBuilder",
                 "java",
@@ -272,6 +282,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "objects-inside-tight-loops",
                 "Creating objects inside tight loops",
                 "Instantiating heavy objects like DateTimeFormatter or Pattern inside a loop body",
                 "java",
@@ -295,6 +306,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "n-plus-one-query-pattern",
                 "N+1 query pattern",
                 "Executing a database query inside a loop, resulting in one query per element plus the initial list query",
                 "java",
@@ -324,6 +336,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "synchronized-on-mutable-field",
                 "Synchronized on mutable field",
                 "Using synchronized on a field whose reference can change, making the lock unreliable",
                 "java",
@@ -355,6 +368,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "unnecessary-autoboxing-in-tight-loops",
                 "Unnecessary autoboxing in tight loops",
                 "Using boxed types like Integer or Long in performance-critical loops where primitives would suffice",
                 "java",
@@ -378,6 +392,7 @@ public class DataSeeder implements CommandLineRunner {
         // --- Maintainability patterns ---
 
         patterns.add(new ReviewPattern(
+                "unclosed-resources",
                 "Unclosed resources",
                 "Opening a resource like InputStream, Connection, or Reader without using try-with-resources",
                 "java",
@@ -400,6 +415,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "missing-null-check-before-dereferencing",
                 "Missing null check before dereferencing",
                 "Calling a method on an object that could be null without checking first",
                 "java",
@@ -422,6 +438,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "string-comparison-with-double-equals",
                 "Using == for string comparison",
                 "Comparing strings with == instead of .equals(), which checks reference identity rather than content",
                 "java",
@@ -443,6 +460,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "raw-types-in-generics",
                 "Raw types in generics",
                 "Using raw generic types like List or Map instead of parameterized types like List<String>",
                 "java",
@@ -464,6 +482,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "god-method",
                 "God method",
                 "A single method that does too many things, making it hard to test, understand, and maintain",
                 "java",
@@ -496,6 +515,7 @@ public class DataSeeder implements CommandLineRunner {
         ));
 
         patterns.add(new ReviewPattern(
+                "mutable-objects-as-map-keys",
                 "Mutable objects as map keys",
                 "Using mutable objects as keys in HashMap or HashSet, where the hash code can change after insertion",
                 "java",

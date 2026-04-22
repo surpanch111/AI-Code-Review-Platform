@@ -23,6 +23,7 @@ public class ReviewPatternService {
 
     public ReviewPattern createPattern(CreatePatternRequest request) {
         ReviewPattern pattern = new ReviewPattern(
+                request.id(),
                 request.name(),
                 request.description(),
                 request.language(),

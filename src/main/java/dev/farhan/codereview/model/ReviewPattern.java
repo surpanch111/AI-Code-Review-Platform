@@ -26,9 +26,10 @@ public class ReviewPattern {
     public ReviewPattern() {
     }
 
-    public ReviewPattern(String name, String description, String language, Severity severity,
+    public ReviewPattern(String id, String name, String description, String language, Severity severity,
                          String category, String exampleBadCode, String exampleGoodCode,
                          String explanation) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.language = language;
