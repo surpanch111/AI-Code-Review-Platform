@@ -1,5 +1,5 @@
 # AI-Powered Code Review Assistant
-
+# Here is the main Project which I was struggling from last few days.
 Companion project for the article "AI-Powered Code Review Assistant: Automated Code Analysis with Spring AI and MongoDB" published on [Foojay](https://foojay.io/).
 
 ## Prerequisites
