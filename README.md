@@ -77,6 +77,12 @@ curl -X POST http://localhost:8080/api/reviews \
     "language": "java"
   }'
 ```
+## Contributing
+Guidelines for contributing to the project.
+Include code style, pull request process, and other collaboration rules.
+1. Fork the repository
+2. Create a new branch
+3. Submit a Pull Request
 ## Deployment 
 I deployed the project after so to get results
 
