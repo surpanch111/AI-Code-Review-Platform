@@ -52,7 +52,7 @@ mvn spring-boot:run
 The `DataSeeder` loads about 20 Java anti-patterns with embeddings on first startup.
 
 ## Features
-A list of key functionalities the project offers. 
+A list of key functionalities the project offers.
 
 ## API endpoints
 
