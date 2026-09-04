@@ -87,5 +87,5 @@ Include code style, pull request process, and other collaboration rules.
 2. Create a new branch
 3. Submit a Pull Request
 ## Deployment 
-I deployed the project after so to get results
+And Finally, deployed the project.
 
